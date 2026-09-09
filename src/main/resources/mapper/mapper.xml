@@ -6,4 +6,5 @@
         INSERT INTO board_table (writer, category, title, content)
         VALUES (#{writer}, #{category}, #{title}, #{content})
     </insert>
+
 </mapper>
