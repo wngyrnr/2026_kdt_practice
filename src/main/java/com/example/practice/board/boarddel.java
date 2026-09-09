@@ -12,7 +12,7 @@ package com.example.practice.board;
 //import org.springframework.web.bind.annotation.RestController;
 //
 //
-public class boardinsert {
+public class boarddel {
 
 }
 //

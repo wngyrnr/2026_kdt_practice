@@ -1,7 +1,6 @@
 package com.example.practice.board;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController // api로 데이터만 요청받기 위해
 @RequestMapping("/board")
-public class BoardInsertController {
+public class BoardInsert {
 
     @Autowired
     BoardService boardservice;
