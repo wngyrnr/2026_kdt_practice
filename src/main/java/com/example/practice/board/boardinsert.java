@@ -1,21 +1,20 @@
 package com.example.practice.board;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 public class boardinsert {
 
 }
-
-
-
-
-
-interface mapper{
-
-}
-
 
 // 게시판CRUD insert, select, update, delete
 // 게시글 작성 , 게시글 조회, 게시글 수정, 게시글 삭제
@@ -32,40 +31,61 @@ interface mapper{
 //                             created_at  DATETIME     DEFAULT CURRENT_TIMESTAMP,
 //                             updated_at
 
-// 데이터 input (writer, category, title, content) -> DTO에 담음
-// board_id는 받지않음 - mybatis - useGeneratedKeys가 키를 생성해줌
-class BoardInsertDto{
-    private Long boardId; // DB에 저장 후 반환된 board를 저장
-    private String title; // 게시글 제목
-    private String category; // 게시글 카테고리
-    private String content; // 게시글 내용
-    private String writer; // 게시글 작성자
-}
-
-@org.apache.ibatis.annotations.Mapper
-interface Mapper{
-    Long insert(BoardInsertDto dto);
-}
-
-// service에서 mapper 호출 dto넘김
-
-
-@Service
-class boardInsertSevice{
-    private Long boardinsert(){
-        Mapper.insert();
-        return null;
-    }
-}
 
 
 
 // IO파이프라인 재작성
 // 데이터 input -controller에서 /write로 받음
+@RestController
+@RequestMapping("/board")
+class boardInsertController{
+
+    @Autowired
+    private boardInsertService boardinsertserive;
+
+    @PostMapping("/write")
+        Long insertBoard(@RequestBody BoardInsertDto dto){
+        boardinsertserive.boardinsert(dto);
+        return dto.getBoardId();
+
+    }
+}
+
+
 // 중복검사 x - db에서 키 자동 생성
 // service에서 mapper로 넘김
-// mapper에서 db에 insert
-// 데이터는 Dto에 저장함
+@Service
+class boardInsertService {
+    @Autowired
+    private Mapper mapper;
+
+    Long boardinsert(BoardInsertDto dto) {
+        mapper.insert(dto);
+        return dto.getBoardId();
+
+    }
+}
+
+
+    // mapper에서 db에 insert
+    @org.apache.ibatis.annotations.Mapper
+    interface Mapper {
+        Long insert(BoardInsertDto dto);
+    }
+
+
+    // 데이터는 Dto에 저장함
+// 데이터 input (writer, category, title, content) -> DTO에 담음
+// board_id는 받지않음 - mybatis - useGeneratedKeys가 키를 생성해줌
+    @Getter
+    @Setter
+    class BoardInsertDto {
+        private Long boardId; // DB에 저장 후 반환된 board를 저장
+        private String title; // 게시글 제목
+        private String category; // 게시글 카테고리
+        private String content; // 게시글 내용
+        private String writer; // 게시글 작성자
+    }
 
 
 
