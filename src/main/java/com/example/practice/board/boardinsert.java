@@ -1,6 +1,8 @@
 package com.example.practice.board;
 
 
+import org.springframework.stereotype.Service;
+
 
 public class boardinsert {
 
@@ -32,7 +34,50 @@ interface mapper{
 
 // 데이터 input (writer, category, title, content) -> DTO에 담음
 // board_id는 받지않음 - mybatis - useGeneratedKeys가 키를 생성해줌
+class BoardInsertDto{
+    private Long boardId; // DB에 저장 후 반환된 board를 저장
+    private String title; // 게시글 제목
+    private String category; // 게시글 카테고리
+    private String content; // 게시글 내용
+    private String writer; // 게시글 작성자
+}
+
+@org.apache.ibatis.annotations.Mapper
+interface Mapper{
+    Long insert(BoardInsertDto dto);
+}
+
 // service에서 mapper 호출 dto넘김
+
+
+@Service
+class boardInsertSevice{
+    private Long boardinsert(){
+        Mapper.insert();
+        return null;
+    }
+}
+
+
+
+// IO파이프라인 재작성
+// 데이터 input -controller에서 /write로 받음
+// 중복검사 x - db에서 키 자동 생성
+// service에서 mapper로 넘김
+// mapper에서 db에 insert
+// 데이터는 Dto에 저장함
+
+
+
+
+
+
+
+
+
+
+
+
 // interface mapper에서 메서드와 xml의 id값과 같은 mapper를 찾음
 // dto의 키값과 같은 이름을 가진 애들을 찾아 값으로 넣어줌
 // DB에 저장됨 이때 AUTO_INCREMENT로 키가 자동으로 생성됨
@@ -40,3 +85,5 @@ interface mapper{
 // 생성된 board_id를 mybatis에 useGeneratedKey="true"로 가져옴
 // 가져온 board_id를 keyProperty="boardId"로 객체의 boardId에 stter로 넣음
 // Dto의 boardId 반환
+
+// 파이프라인 작성 - 9분
