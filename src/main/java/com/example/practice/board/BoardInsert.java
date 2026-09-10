@@ -23,9 +23,10 @@ public class BoardInsert {
     // 데이터 들어옴 title, category, content , writer
     //boardid를 반환하기 위해 Long으로 설정
     @PostMapping("/write")
-    Long boardinsert(@RequestBody boardInsertDto dto) {
-        return boardservice.board(dto);
+    void boardinsert(@RequestBody boardInsertDto dto) {
+        boardservice.board(dto);
     }
+
 }
 
     @Service
