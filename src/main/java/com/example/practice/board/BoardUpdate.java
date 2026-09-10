@@ -21,15 +21,16 @@ public class BoardUpdate {
     @Autowired
     BoardSelectService boardselectservice;
 
-    // edit/boardId로 게시판 데이터 페이지 요청
+    // select/boardId로 게시판 데이터 페이지 요청
     // 가져온 데이터 확인
     @GetMapping("/select/{boardId}")
     BoardUpdateDto select(@PathVariable Long boardId){
         return boardselectservice.select(boardId);
     }
+    // edit/boardId로 게시판 데이터 update 요청
     @PostMapping("/edit/{boardId}")
     Long update(@RequestBody BoardUpdateDto dto){
-        return null;
+        return boardselectservice.update(dto);
     }
 
 }
@@ -43,29 +44,25 @@ public class BoardUpdate {
         BoardUpdateDto select(Long boardId){
             return mapperupdate.selectBoardId(boardId);
         }
+        Long update(BoardUpdateDto dto){
+            mapperupdate.updateBoard(dto);
+            return dto.getBoardId();
+        }
+
     }
 
 
 
-
-
-
-
-// 수정 후 db에 update로 삽입
 // 수정한 해당 게시판 boarId값 리턴받아서 확인
 
 
 
-
-
-
-
-
-
-    // db에 select로 게시판 데이터 가져옴
     @Mapper
     interface MapperUpdate{
+        // db에 select로 게시판 데이터 가져옴
         BoardUpdateDto selectBoardId(Long boardId);
+        // 수정 후 db에 update로 삽입
+        Long updateBoard(BoardUpdateDto dto);
     }
 
 
@@ -80,5 +77,4 @@ class BoardUpdateDto{
     private String title;
     private String content;
     private String writer;
-    private LocalDateTime updatedAt;
 }

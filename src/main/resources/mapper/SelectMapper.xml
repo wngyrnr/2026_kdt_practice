@@ -11,12 +11,12 @@
         WHERE board_id = #{boardId}
     </select>
 
-    <select id="selectBoardId" parameterType="Long" resultType="com.example.practice.board.BoardUpdateDto">
-        SELECT board_id AS boardId,
-        category AS category,
-        title, writer, content,
-        updated_at AS updatedAt
-        FROM board_table
+    <update id="updateBoard" parameterType="com.example.practice.board.BoardUpdateDto">
+        UPDATE board_table
+        SET category = #{category},
+            title = #{title},
+            content = #{content},
+            writer = #{writer}
         WHERE board_id = #{boardId}
-    </select>
+    </update>
 </mapper>
