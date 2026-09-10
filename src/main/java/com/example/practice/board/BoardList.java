@@ -24,7 +24,6 @@ public class BoardList {
     // db에 select요청함
     @GetMapping("/list")
     List<BoardListDto> select(){
-
         List<BoardListDto> list = listmapper.selectAll();
         return list;
     }
