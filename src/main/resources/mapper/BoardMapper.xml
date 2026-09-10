@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.practice.board.mapper.BoardMapper">
+
+    <!-- 게시판 생성 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="boardId">
+        INSERT INTO board_table (writer, category, title, content)
+        VALUES (#{writer}, #{category}, #{title}, #{content})
+    </insert>
+
+    <!-- 게시판 전체 조회 -->
+    <select id="selectAll" resultType="com.example.practice.board.dto.BoardListDto">
+        SELECT category,title,writer,created_at FROM board_table
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 게시물 조회 -->
+    <select id="selectBoardId" parameterType="Long" resultType="com.example.practice.board.dto.BoardUpdateDto">
+        SELECT board_id AS boardId,
+        category AS category,
+        title, writer, content
+        FROM board_table
+        WHERE board_id = #{boardId}
+    </select>
+
+    <!-- 게시판 수정 -->
+    <update id="updateBoard" parameterType="com.example.practice.board.dto.BoardUpdateDto">
+        UPDATE board_table
+        SET category = #{category},
+        title = #{title},
+        content = #{content},
+        writer = #{writer}
+        WHERE board_id = #{boardId}
+    </update>
+
+    <!-- 게시판 삭제 -->
+    <delete id="deleteMapper" parameterType="Long">
+        DELETE FROM board_table WHERE board_id = #{boardId}
+    </delete>
+</mapper>
