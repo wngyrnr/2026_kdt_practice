@@ -14,6 +14,19 @@
         ORDER BY created_at DESC
     </select>
 
+    <!-- 게시글 전체 수 -->
+    <select id="selectCount" resultType="int">
+        SELECT COUNT(*) FROM board_table;
+    </select>
+
+    <select id="pagenation" parameterType="int" resultType="com.example.practice.board.dto.BoardListDto">
+        SELECT category,title,writer,created_at
+        FROM board_table
+        ORDER BY created_at DESC
+        LIMIT #{pageSize} OFFSET #{offSet}
+    </select>
+
+
     <!-- 게시물 조회 -->
     <select id="selectBoardId" parameterType="Long" resultType="com.example.practice.board.dto.BoardUpdateDto">
         SELECT board_id AS boardId,

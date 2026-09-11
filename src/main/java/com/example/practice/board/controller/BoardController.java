@@ -29,6 +29,13 @@ public class BoardController {
     public List<BoardListDto> list(){
         return boardservice.select();
     }
+
+    //게시판 페이징처리
+    @GetMapping("/list/{currentPage}")
+    public BoardPageResponseDto boardgetBoards(@PathVariable int currentPage){
+        return boardservice.getBoards(currentPage);
+    }
+
     //게시글 상세페이지
     @GetMapping("/select/{boardId}")
     public BoardUpdateDto select(@PathVariable Long boardId){
