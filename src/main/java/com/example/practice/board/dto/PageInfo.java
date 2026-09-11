@@ -13,7 +13,7 @@ public class PageInfo {
     private int offset; // DB 인덱스 번호
 
     public PageInfo(int currentpage,int pageSize,int totalCount){
-        this.currentPage = currentpage;
+        currentPage = currentpage;
         this.pageSize = pageSize;
         this.totalCount = totalCount;
         this.maxPage = ((int)Math.ceil((double)totalCount / pageSize));

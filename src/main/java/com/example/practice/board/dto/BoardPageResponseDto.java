@@ -11,4 +11,5 @@ import java.util.List;
 public class BoardPageResponseDto {
     private List<BoardListDto> list;
     private PageInfo pageInfo;
+    private SearchCondition searchCondition;
 }

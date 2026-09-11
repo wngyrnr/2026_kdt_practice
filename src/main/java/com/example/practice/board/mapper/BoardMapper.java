@@ -8,7 +8,6 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
     Long insert(BoardInsertDto dto);
-    List<BoardListDto> selectAll();
     int selectCount();
     List<BoardListDto> pagenation(int pageSize, int offSet);
     BoardUpdateDto selectBoardId(Long boardId);
