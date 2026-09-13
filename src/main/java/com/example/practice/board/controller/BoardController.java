@@ -25,9 +25,13 @@ public class BoardController {
     }
 
     //게시판 목록
-    @GetMapping("/list/{currentPage}")
-    public BoardPageResponseDto boardgetBoards(@PathVariable int currentPage){
-        return boardservice.getBoards(currentPage);
+    @GetMapping("/list")
+    public BoardPageResponseDto boardgetBoards(@RequestParam(name = "page", required = false, defaultValue = "1") int currentPage,
+                                               @RequestParam(name = "category", required = false, defaultValue = "전체") String category,
+                                               @RequestParam(name = "keyword", required = false) String keyword,
+                                               @RequestParam(name = "searchType", required = false, defaultValue = "title") String searchType
+                                               ){
+        return boardservice.getBoards(currentPage,category,keyword,searchType);
     }
 
     //게시글 상세페이지

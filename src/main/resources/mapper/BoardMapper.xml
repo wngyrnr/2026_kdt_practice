@@ -10,7 +10,20 @@
     -->
         <where>
             <if test = "category != null and category != '' and category != '전체'">
-
+                AND category = #{category}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                <choose>
+                    <when test="searchType == 'title'">
+                        AND title LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                    <when test="searchType == 'writer'">
+                        AND writer LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                    <when test="searchType == 'content'">
+                        AND content LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                </choose>
             </if>
         </where>
 
@@ -24,14 +37,16 @@
     </insert>
 
     <!-- 게시글 전체 수 -->
-    <select id="selectCount" resultType="int">
-        SELECT COUNT(*) FROM board_table;
+    <select id="selectCount">
+        SELECT COUNT(*) FROM board_table
+        <include refid="searchWhere"/>
     </select>
 
     <!-- 게시글 조회 페이지네이션 -->
-    <select id="pagenation" parameterType="int" resultType="com.example.practice.board.dto.BoardListDto">
+    <select id="pagenation" resultType="com.example.practice.board.dto.BoardListDto">
         SELECT category,title,writer,created_at
         FROM board_table
+        <include refid="searchWhere"/>
         ORDER BY created_at DESC
         LIMIT #{pageSize} OFFSET #{offSet}
     </select>
