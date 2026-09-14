@@ -61,3 +61,21 @@ public class BoardController {
 // when category, title, writer, content 정보를 받아옴
 // 그 정보에 맞는 mapper 작성 후 db에서 검색 조건만 뽑아서 정렬 후 페이징처리된 상태로 list반환 > 검색조건을 페이징에 앞에 넣으면 될듯
 // search(list<dto>,검색조건,페이징)형태로 전달하는게 좋아보임
+
+// 파일 업로드
+// insert
+// 파일 업로드 형식 - multipart/form-data
+// 파일과 게시판 분리해서 parameter받기
+// this.boardId = boardId;
+//        this.orgFileName = orgFileName;
+//        this.savedFileName = savedFileName;
+//        this.savedPath = savedPath;
+//        this.fileSize = fileSize; 저장
+// board_table에는 saveFileName만 저장
+// Controller에서 파일이 없거나 빈 파일 조건
+// 저장됐는지 Transaction걸어서 확인하기
+// DB에는 file_id / board_id / file_name / original_name / file_path
+//      created_at / file_size / file_type
+// 만 저장하고 실제 사진은 local에 따로 저장
+// board_id를 fk로 설정
+// 저장성공 시 board_id반환

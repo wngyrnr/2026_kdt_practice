@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
     Long insert(BoardInsertDto dto);
+    void insertBoardFiles(List<BoardFileDto> File);
     int selectCount(@Param("category")String category,
                     @Param("keyword")String keyword,
                     @Param("searchType")String searchType);
