@@ -6,6 +6,7 @@ import com.example.practice.board.mapper.BoardMapper;
 import com.example.practice.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @RestController
@@ -20,8 +21,10 @@ public class BoardController {
 
     // 게시글 작성
     @PostMapping("/write")
-    public Long boardInsert(@RequestBody BoardInsertDto dto) {
-        return boardservice.board(dto);
+    public Long boardInsert(@ModelAttribute BoardInsertDto dto,
+                            @RequestParam(value = "file", required = false) MultipartFile file
+                            ) {
+        return boardservice.board(dto, file);
     }
 
     //게시판 목록

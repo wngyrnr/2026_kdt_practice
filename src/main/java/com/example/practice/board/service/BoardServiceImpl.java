@@ -4,6 +4,8 @@ import com.example.practice.board.dto.*;
 import com.example.practice.board.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -14,9 +16,21 @@ public class BoardServiceImpl implements BoardService{
     BoardMapper boardmapper;
 
 
-    // 게시글 작성
-    public Long board(BoardInsertDto dto){
+    @Autowired
+    FileUploadUtil fileUploadUtil;
+
+    //게시글 작성
+    @Transactional
+    public Long board(BoardInsertDto dto, MultipartFile file) {
         boardmapper.insert(dto);
+        // useGeneratedKeys="true" keyProperty="boardId" 덕분에 이 시점에 dto.getBoardId()가 채워져 있음
+
+        BoardFileDto fileDto = fileUploadUtil.save(file);
+        if (fileDto != null) {
+            fileDto.setBoardId(dto.getBoardId());        // 여기서 boardId-파일 연결
+            boardmapper.insertBoardFiles(List.of(fileDto));
+        }
+
         return dto.getBoardId();
     }
 

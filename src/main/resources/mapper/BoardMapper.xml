@@ -36,6 +36,14 @@
         VALUES (#{writer}, #{category}, #{title}, #{content})
     </insert>
 
+    <insert id="insertBoardFiles">
+        INSERT INTO file_table (board_id, file_name, original_name, file_path, file_size, file_type)
+        VALUES
+        <foreach collection="list" item="f" separator=",">
+            (#{f.boardId}, #{f.fileName}, #{f.originalName}, #{f.filePath}, #{f.fileSize}, #{f.fileType})
+        </foreach>
+    </insert>
+
     <!-- 게시글 전체 수 -->
     <select id="selectCount">
         SELECT COUNT(*) FROM board_table

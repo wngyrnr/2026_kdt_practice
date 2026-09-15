@@ -3,6 +3,7 @@ package com.example.practice.board.mapper;
 import com.example.practice.board.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
