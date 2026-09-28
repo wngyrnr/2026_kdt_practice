@@ -34,7 +34,7 @@ public class FileUploadUtil {
         if (!dir.exists()) {
             dir.mkdirs(); // 경로가 없으면 생성
         }
-
+        // 파일경로 + 저장할 파일 이름 dest에 담음
         File dest = new File(dir, saveName);
 
         try {

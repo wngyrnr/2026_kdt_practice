@@ -82,3 +82,11 @@ public class BoardController {
 // 만 저장하고 실제 사진은 local에 따로 저장
 // board_id를 fk로 설정
 // 저장성공 시 board_id반환
+
+// websocket 통신
+// 포트를 먼저 열어준다.
+// 클라이언트 생성
+// 클라이언트 포트 연결 확인
+// 스레드 할당
+// 연결 됐는데 왜 서버를 닫지?
+//
